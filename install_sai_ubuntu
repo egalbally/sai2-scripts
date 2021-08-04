@@ -1,0 +1,85 @@
+#!/bin/bash
+
+#########################
+# Date: May 2019
+# Author: Elena Galbally elenagal@stanford.edu
+# Test version. May not work in all cases depending on dependencies
+#########################
+
+# make sure you:
+# (1) have a folder called "code" in your home directory
+# (2) have access to the private repo sai2-simulation
+# (3) you have an ssh key to be able to clone the repos
+
+echo "Installation Starting"
+cd ~
+cd code/
+
+#########################
+echo "Making sai directory inside code"
+mkdir sai/
+cd sai
+mkdir core && cd .. && mkdir apps && mkdir drivers
+
+#########################
+echo "Installing all required dependancies (ubuntu)"
+#---------- basics
+sudo apt-get install build-essential
+sudo apt-get install cmake
+sudo apt-get install git
+sudo apt-get install libglfw3-dev
+
+#----------sai2-urdfreader 
+sudo apt-get install libtinyxml2-dev
+
+#----------sai2-model 
+# sai2-model depends on eigen3 and sai2-urdfreader
+sudo apt-get install libeigen3-dev
+
+#----------chai3d
+sudo apt-get install libasound2-dev libusb-1.0.0-dev freeglut3-dev xorg-dev libglew-dev
+
+#----------sai2-graphics 
+# This is SAI2 graphics library for simulation displays. It uses CHAI3D. 
+
+#----------sai2-simulation 
+
+#----------sai2-common 
+sudo apt-get install libjsoncpp-dev libhiredis-dev redis-server
+
+#----------sai2-primitives
+# sai2-primitives depends on sai2-model and Eigen3. The examples depend on additional libraries : sai2-simulation, sai2-graphics, sai2-common.
+
+
+#########################
+echo "Cloning the repos"
+git clone git@github.com:manips-sai-org/sai2-urdfreader.git
+git clone git@github.com:manips-sai-org/sai2-model.git
+git clone git@github.com:manips-sai-org/chai3d.git
+git clone git@github.com:manips-sai-org/sai2-graphics.git
+git clone git@github.com:manips-sai/sai2-simulation.git
+git clone git@github.com:manips-sai-org/sai2-common.git
+git clone git@github.com:manips-sai-org/sai2-primitives.git
+
+#########################
+echo "Default build all repos"
+cd ~
+cd code/sai/core/sai2-urdfreader
+echo "--------------"
+echo "sai2-urdfreader"
+echo "--------------"
+mkdir build && cd build && cmake .. && make -j4
+echo ""
+for repo in sai2-model chai3d sai2-graphics sai2-simulation sai2-common sai2-primitives; do
+	echo "--------------"
+    echo ${repo}
+    echo "--------------"
+    cd ../../"${repo}/"
+    mkdir build 
+    cd build
+    cmake ..
+    make -j4
+    echo ""
+done
+
+

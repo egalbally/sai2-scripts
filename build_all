@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#########################
+# Author: elenagal@stanford.edu
+# Build all SAI-2 core repos in default mode
+#########################
+
+cd ~
+cd code/sai/core/sai2-model/build
+
+for repo in sai2-urdfreader sai2-model chai3d sai2-graphics sai2-simulation sai2-common sai2-primitives; do
+    echo "--------------"
+    echo ${repo}
+    echo "--------------"
+    cd ../../"${repo}/build"
+    cmake ..
+    # cmake -DCMAKE_BUILD_TYPE=Debug ..	
+    # cmake -DCMAKE_BUILD_TYPE=Release ..
+    make -j4
+    echo ""
+    echo ""
+done
+
+echo "Built all repos"
+
+
+# # RBDL
+# echo "--------------"
+# echo ${repo}
+# echo "--------------"
+# cd ~
+# cd code/sai/core/sai2-model/rbdl/build
+# cmake ..
+# make -j4
+# echo ""
+# echo ""
+

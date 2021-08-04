@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#########################
+# Author: Elena Galbally elenagal@stanford.edu
+#########################
+
+cd ~
+cd code/sai/core/sai2-model/build
+
+for repo in sai2-urdfreader sai2-model chai3d sai2-graphics sai2-simulation sai2-common sai2-primitives; do
+    echo ${repo}
+    cd ../../"${repo}/build"
+    rm -rf * #remove everything inside the build folder
+    echo ""
+done
+
+echo "Build folders are now empty"
+
+# # RBDL
+# echo "rbdl (inside sai2-model)"
+# cd ~
+# cd code/sai/core/sai2-model/rbdl/build
+# rm -rf *
+# echo ""

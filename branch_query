@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#########################
+# Author: Elena Galbally elenagal@stanford.edu
+# Returns the current branch for all SAI-2 core repos
+#########################
+
+cd ~
+cd code/sai/core/sai2-model/
+
+for repo in sai2-urdfreader sai2-model sai2-graphics sai2-simulation sai2-common sai2-primitives; do
+    cd ../"${repo}/"
+    echo ${repo}
+    git branch
+    echo ""
+done

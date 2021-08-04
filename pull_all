@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# # RBDL
+# echo "rbdl (inside sai2-model)"
+# cd ~
+# cd code/sai/core/sai2-model/rbdl/build
+# git pull
+# echo ""
+
+# All other core repos
+cd ~
+cd code/sai/core/sai2-model/
+
+for repo in sai2-urdfreader sai2-model chai3d sai2-graphics sai2-simulation sai2-common sai2-primitives; do
+    echo ${repo}
+    cd ../"${repo}/"
+    git pull
+    echo ""
+done
+
+echo "Git pull all sai core repos (current branch)"
